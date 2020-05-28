@@ -7,8 +7,6 @@
 
 #Note: Use Python 3. Python 2 will encode data as UTF-8 instead of string, and this will cause headaches with later character parsing.
 
-import sys
-sys.path.append('/Users/Manon/anaconda3/lib/python3.5/site-packages')
 import json
 import pandas as pd
 import math
