@@ -13,7 +13,7 @@ import math
 import glob
 import os
 
-list_of_files = glob.glob('/Users/Manon/Scripts/JavaScript/NewSlipsOfAction/mongodb_downloads/*') # * means all if need specific format then *.csv
+list_of_files = glob.glob('/Users/Manon/Scripts/JavaScript/NewSlipsOfAction/mongodb_downloads/*') # * means all. If need specific format then *.csv
 latest_file = max(list_of_files, key=os.path.getctime)
 print(latest_file) #Make sure this is the file you think it is!
 
@@ -21,7 +21,7 @@ json_dicts = []
 with open(latest_file, 'r') as f:
     lines = f.read().strip().split('\n')
     for l in lines:
-        json_dicts.append(json.loads(l)['data'])
+        json_dicts.append(json.loads(l)['data']) #Choose the main dictionary item you want to pull from. In my case, it is 'data'.
 
 dfs = []
 for d in json_dicts:
@@ -37,6 +37,9 @@ print(type(bigDF['action_order'][1][0]))
 bigDF = bigDF[bigDF.mTurk_code > 7810000000] #This removes people who did not pass the learning phase.
 #To examine data from participants who did not pass learning, take out this line of code, or specify ID in the 5010000000 range.
 
+# frames, frames2, and frames3 create separate sub-dictionaries based on task data subtypes.
+# We need separate sub-dictionaries because different .json items have different numbers of parameters, which would lead to 
+# differing numbers of columns, which is a problem in data analysis.
 frames = {name: df.dropna(axis=1).drop('Phase', axis=1)
           for name, df in bigDF.groupby('Phase')}
 
@@ -46,6 +49,7 @@ frames2 = {name: df.dropna(axis=1).drop('trial_type', axis=1)
 frames3 = {name: df.dropna(axis=1).drop('Screentype', axis=1)
           for name, df in bigDF.groupby('Screentype')}
 
+# Set the target directory and write csvs.
 target_dir = 'data'
 for name, frame in frames.items():
     csv = '{}/{}.csv'.format(target_dir, name)
