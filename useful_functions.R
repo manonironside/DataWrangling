@@ -43,6 +43,7 @@ plot_multigrader_histogram <- function(grades_df, title) {
 ## EXAMPLE:
 ## If I want to remove participant ids '101' and '105' from my dataset:
 ## new_df <- old_df %>% filter(id %notin% c("101","105"))
+## Credit for %notin% goes to Stack Overflow...e.g. user catastrophic-failure on this post: https://stackoverflow.com/questions/38351820/negation-of-in-in-r/38352065#38352065
 
 # Derive d prime and criterion from signal detection data
 ## Note: this code was adapted from: https://lindeloev.net/calculating-d-in-python-and-php/
