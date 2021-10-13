@@ -1,3 +1,9 @@
+# Load required packages, install if necessary:
+library(dplyr)
+library(ggplot2)
+library(viridis)
+library(stats)
+
 # Create sequential subject IDs from true IDs
 ## 1) Read in data frame
 ## 2) add variable 'num_id' to data frame
