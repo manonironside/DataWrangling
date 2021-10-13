@@ -30,13 +30,13 @@ sequential_ids <- function(df) {
 plot_multigrader_histogram <- function(grades_df, title) {
   grades_df$Grader <- as.factor(grades_df$Grader)
   grader_means <- grades_df %>% group_by(Grader) %>% summarise(
-    average = mean(Grade),
+    ave_grade = mean(Grade),
     number_graded = n()
   )
   p <- ggplot(grades_df, aes(Grade, fill = Grader)) + 
     geom_histogram(bins = 12, alpha = 0.4, color = "black", aes(y = ..count..), position = 'identity') +
     scale_fill_viridis(discrete = T, begin = .5) +
-    geom_vline(data = grader_means, aes(xintercept = average, col = Grader), linetype = "dashed") +
+    geom_vline(data = grader_means, aes(xintercept = ave_grade, col = Grader), linetype = "dashed") +
     ggtitle(title)
   return(p)
 }
